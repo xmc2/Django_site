@@ -1,23 +1,49 @@
 <!DOCTYPE html>
-
 {% load staticfiles %}
-
 <html>
+<head>
+  <title>Rango</title>
+</head>
+<body>
+  <h1>Rango says...</h1>
+  <div>hey there partner!</div>
+  <div>
+  {% if categories %}
+  <h1> hot cats! </h1>
 
-  <head>
-      <title>rango</title>
-  </head>
+  <ul>
+      {% for category in categories %}
+      <li>
+      <a href="/rango/category/{{ category.slug }}">{{ category.name }}</a>
+      </li>
+      {% endfor %}
+  </ul>
+  {% else %}
+    <strong>There are no categories present.</strong>
+  {% endif %}
+  </div>
 
-  <body>
-    <h1>rango says ... </h1>
-    <div>
-      hey there partner <br/>
-      <strong>{{ boldmessage }}</strong><br />
-    </div>
-    <div>
-      <a href="/rango/about">About</a><br />
-      <img src="{% static "images/night.jpg" %}"
-        alt="Picture of Bmore" />
-    </div>
-  </body>
+  <div>
+  {% if pages %}
+  <h1> our most popular pages! </h1>
+  <ul>
+
+    </br>
+      {% for page in pages %}
+      <li>
+      <a href="{{ page.url }}">{{ page.title }}</a>
+      </li>
+      {% endfor %}
+  </ul>
+  {% else %}
+    <strong>There are no categories present.</strong>
+  {% endif %}
+  </div>
+
+
+  <div>
+    <a href="/rango/about/">About Rango</a>
+    <img src="{% static "images/night.jpg" %}" alt="Picture of Rango" />
+  </div>
+</body>
 </html>
