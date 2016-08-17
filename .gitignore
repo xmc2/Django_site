@@ -1,0 +1,6 @@
+*.sqlite3
+db/*.sqlite3
+public/avatars
+tmp
+test
+*.pyc
