@@ -1,3 +1,25 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+About this site
+{% endblock %}
+
+{% block body_block %}
+  <body>
+    <h1>Welcome </h1>
+    <div>
+      This site was built by MC begining aug 16th <br/>
+    </div>
+    <div>
+      <a href="/rango/">Index</a><br />
+      <img src="{% static "images/night.jpg" %}"
+        alt="Picture of Bmore" />
+    </div>
+  </body>
+{% endblock %}
+
+<!--
 <!DOCTYPE html>
 
 {% load staticfiles %}
