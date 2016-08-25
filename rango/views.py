@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from rango.models import Category, Page
+from django.contrib.auth.decorators import login_required
 from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     category_list = Category.objects.order_by('-likes')[:5]
@@ -29,6 +30,7 @@ def show_category(request, category_name_slug):
         context_dict['pages'] = None
     return render(request, 'rango/category.html', context_dict)
 
+@login_required
 def add_category(request):
     form = CategoryForm()
     # A HTTP POST?
@@ -48,6 +50,7 @@ def add_category(request):
             print(form.errors)
     return render(request, 'rango/add_category.html', {'form': form})
 
+@login_required
 def add_page(request, category_name_slug):
     try:
         category = Category.objects.get(slug=category_name_slug)
@@ -115,6 +118,7 @@ def register(request):
         'profile_form': profile_form,
         'registered': registered}
         )
+
 def user_login(request):
     # if request is HTTP POST pull out relevant information
     if request.method == 'POST':
@@ -150,3 +154,14 @@ def user_login(request):
     else:
         #no context variables to pass
         return render(request, 'rango/login.html', {})
+
+@login_required
+def restricted(request):
+    return HttpResponse("Since you're logged in, you can see this text!")
+
+@login_required
+def user_logout(request):
+    # Since we know the user is logged in, we can now just log them out.
+    logout(request)
+    # Take the user back to the homepage.
+    return HttpResponseRedirect(reverse('index'))
