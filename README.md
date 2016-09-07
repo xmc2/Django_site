@@ -1,3 +1,3 @@
 # natty_boh
 
-First attempt at a django powered website!
+Basic web application powered by Django, replaced by SplashShot.
